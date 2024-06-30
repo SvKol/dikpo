@@ -34,8 +34,8 @@ function solve() {
     } else {
         let D = Math.pow(fields.value.b, 2) - 4 * fields.value.a * fields.value.c
         if (D < 0) {
-            results.value.x1 = formatted(-fields.value.b/(2 * fields.value.a)) + ' + ' + formatted(Math.sqrt(-D)) + 'i'
-            results.value.x2 = formatted(-fields.value.b/(2 * fields.value.a)) + ' - ' + formatted(Math.sqrt(-D)) + 'i'
+            results.value.x1 = formatted(-fields.value.b/(2 * fields.value.a)) + ' + ' + formatted(Math.sqrt(-D)/(2 * fields.value.a)) + 'i'
+            results.value.x2 = formatted(-fields.value.b/(2 * fields.value.a)) + ' - ' + formatted(Math.sqrt(-D)/(2 * fields.value.a)) + 'i'
         } else if (D === 0) {
             results.value.x = formatted(-fields.value.b / (2 * fields.value.a))
         } else {
