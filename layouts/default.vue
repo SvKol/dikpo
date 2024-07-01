@@ -17,6 +17,10 @@ const links = [{
     label: 'Game',
     icon: 'i-heroicons-puzzle-piece',
     to: '/game'
+}, {
+    label: 'Wordle Helper',
+    icon: 'i-heroicons-newspaper',
+    to: '/wordle'
 }]
 
 </script>
