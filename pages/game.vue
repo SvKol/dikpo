@@ -1,55 +1,21 @@
 <script setup>
 const items = [
-    {
-        name: 'house',
-        image: '/house.webp',
-        color: null
-    },
-    {
-        name: 'cat',
-        image: '/cat.jpg',
-        color: null
-    },
-    {
-        name: 'dog',
-        image: '/dog.jpg',
-        color: null
-    },
-    {
-        name: 'helicopter',
-        image: '/helicopter.jpg',
-        color: null
-    },
-    {
-        name: 'car',
-        image: '/car.jpeg',
-        color: null
-    },
-    {
-        name: 'parrot',
-        image: '/parrot.jpg',
-        color: null
-    },
-    {
-        name: 'wolf',
-        image: '/wolf.jpg',
-        color: null
-    },
-    {
-        name: 'fox',
-        image: '/fox.jpg',
-        color: null
-    },
-    {
-        name: 'mountain',
-        image: '/mountain.jpg',
-        color: null
-    },
-    {
-        name: 'whale',
-        image: '/whale.jpg',
-        color: null
-    }
+    { name: 'house', image: '/house.webp' },
+    { name: 'cat', image: '/cat.jpg' },
+    { name: 'dog', image: '/dog.jpg' },
+    { name: 'helicopter', image: '/helicopter.jpg' },
+    { name: 'car', image: '/car.jpeg' },
+    { name: 'parrot', image: '/parrot.jpg' },
+    { name: 'wolf', image: '/wolf.jpg' },
+    { name: 'fox', image: '/fox.jpg' },
+    { name: 'mountain', image: '/mountain.jpg' },
+    { name: 'whale', image: '/whale.jpg' },
+    { name: 'cake', image: '/cake.webp' },
+    { name: 'donkey', image: '/donkey.jpg' },
+    { name: 'eagle', image: '/eagle.jpg' },
+    { name: 'apple', image: '/apple.jpg' },
+    { name: 'bicycle', image: '/bicycle.jpeg' },
+    { name: 'catfish', image: '/catfish.jpg' },
 ]
 
 const initialized = ref(false)
@@ -69,7 +35,6 @@ function shuffleAnswers() {
         if (goal.value < 0 && idx !== cache) goal.value = idx
         answers.value.add(idx)
     }
-    console.log(answers.value)
 }
 
 onMounted(() => {
@@ -97,7 +62,7 @@ async function selectAnswer(answer) {
 <template>
     <div v-if="initialized">
         <div class="text-2xl font-bold">
-            Which image depicts a {{ items[goal].name }}?
+            Which image depicts a{{ /^[aieou].+$/g.test(items[goal].name) ? `n ${items[goal].name}` : ` ${items[goal].name}` }}?
         </div>
         <div class="grid grid-cols-2 gap-2">
             <template v-for="(item, index) in items" :key="index">
