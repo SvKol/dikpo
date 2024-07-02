@@ -29,10 +29,9 @@ watch_y(3)
 watch_y(4)
 
 onMounted(async () => {
-  const response = await fetch('api/read')
+  const response = await fetch('/en_US-large.txt')
   const text = await response.text()
   words.value = text.split(/[\r\n]+/).filter(w => w.length === 5)
-  console.log(words.value)
 })
 
 function reset() {
