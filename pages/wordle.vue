@@ -1,6 +1,7 @@
 <script setup>
 const words = ref([''])
 const found = ref([''])
+const wordsWithLetters = ref([])
 const letters = ref({
   g:['','','','',''],
   y:[[''],[''],[''],[''],['']],
@@ -31,6 +32,7 @@ onMounted(async () => {
   const response = await fetch('api/read')
   const text = await response.text()
   words.value = text.split(/[\r\n]+/).filter(w => w.length === 5)
+  console.log(words.value)
 })
 
 function reset() {
@@ -40,6 +42,7 @@ function reset() {
     b:['']
   },
   found.value = []
+  wordsWithLetters.value = []
 }
 
 const max_y = computed(() => {
@@ -80,7 +83,14 @@ const search = () => {
       return true
     })
   })
-  found.value = filtered
+  found.value = [...filtered]
+  filtered = filtered.map(word => word.toLowerCase())
+  for (let i = 0; i < 26; i++){
+    const letter = String.fromCharCode(97 + i)
+    wordsWithLetters.value[i] = filtered.reduce((acc, word) => {
+      return word.includes(letter) ? acc + 1 : acc
+    }, 0)
+  }
 }
 
 const help = 'Fill the matched letters into their corresponding green fields.\nFill the existing, but shuffled letters into the corresponding yellow fields.\nFill the letters that were not matched into the gray fields.\nIf a yellow letter is found and becomes green, remove it from the yellow fields!'
@@ -109,4 +119,16 @@ const help = 'Fill the matched letters into their corresponding green fields.\nF
   <div class="grid grid-cols-20 gap-2 min-h-[2rem] max-h-[30rem] rounded-xl ring-2 ring-gray-500 overflow-auto mt-2 p-2">
     <div v-for="word of found">{{word}}</div>
   </div>
+  <table class="mt-4 m-auto border-collapse border border-gray-500">
+    <thead>
+      <tr>
+        <th v-for="i in 26" class="p-2 border border-gray-500">{{String.fromCharCode(96 + i)}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td v-for="amt in wordsWithLetters" class="p-2 border border-gray-500">{{amt}}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
